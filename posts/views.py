@@ -79,14 +79,15 @@ class PostDetalhes(View):
         
         if not form.is_valid():
             return render(request, self.template_name, self.contexto)
+
         comentario = form.save(commit=False)
 
         if request.user.is_authenticated:
             comentario.usuario_comentario = request.user
         
-        comentario.post_comentario = self.conxtexto['post']
+        comentario.post_comentario = self.contexto['post']
         comentario.save()
-        messages.sucess(request, 'Seu comentário foi enviado')
+        messages.success(request, 'Seu comentário foi enviado')
         return redirect('post_detalhes', pk=self.kwargs.get('pk'))
 
 #class PostDetalhes(UpdateView):
